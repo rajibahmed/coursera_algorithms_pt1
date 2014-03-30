@@ -7,7 +7,7 @@ class QuickUnion
   end
 
   #solve with recursion
-  def root(value) 
+  def root_v1(value) 
     parent = nodes[value]
     grand_parent = nodes[parent]
     if(parent!=grand_parent)
@@ -17,8 +17,21 @@ class QuickUnion
     end
   end
 
+  def root_v2(value)
+    while(value!=nodes[value]) do 
+      value = nodes[value]
+    end
+    value
+  end
+
+  def root(value)
+    root_v2(value) 
+  end
+
   def union(p,q)
-    nodes[p]=q
+    root_of_p = root(p)
+    root_of_q = root(q)
+    nodes[root_of_p]=root_of_q
   end
 
   def connected?(p,q)
